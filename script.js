@@ -12,6 +12,7 @@ pizzaJson.map( (item, index) => {
   pizzaItem.querySelector('.pizza-item--img img').src = item.img;
   pizzaItem.querySelector('.pizza-item--name').innerHTML = item.name;
   pizzaItem.querySelector('.pizza-item--desc').innerHTML = item.description;
+
   pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${item.price.toFixed(2)}`;
 
 // Listagem das Pizza
@@ -73,6 +74,8 @@ $('.pizzaInfo--qtmais').addEventListener('click', ()=>{
 all('.pizzaInfo--size').forEach( (size, seizeIndex) => {
   size.addEventListener('click', (e) => {
     $('.pizzaInfo--size.selected').classList.remove('selected');
+    let price = $('.pizzaInfo--actualPrice');
+    price.innerHTML = pizzaJson[seizeIndex].prices[seizeIndex];
     size.classList.add('selected');
   });
 } );
@@ -122,7 +125,8 @@ function updateCard(){
      let pizzaItem = pizzaJson.find((item)=>{
        return item.id == card[i].id;
      });
-     subtotal += pizzaItem.price * card[i].qt;
+
+     subtotal += pizzaItem.prices[i] * card[i].qt;
 
      let cartItem = $('.models .cart--item').cloneNode(true);
 
